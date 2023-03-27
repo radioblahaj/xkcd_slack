@@ -1,14 +1,11 @@
+const express = require('express')
+const receiver = new ExpressReceiver({ signingSecret: process.env.SLACK_SIGNING_SECRET });
+receiver.router.use(express.static('public'))
+
 const { App, ExpressReceiver } = require('@slack/bolt');
+
   require("dotenv").config();
   const axios = require('axios');
-<<<<<<< HEAD
-  const express = require('express')
-
-=======
-  const JSXSlack = require("jsx-slack");
-  const { Title, Section, Content } = JSXSlack;
->>>>>>> parent of 90eac04 (add express)
-
 
   // Initializes your app with your bot token and signing secret
   const app = new App({
