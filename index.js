@@ -7,6 +7,7 @@ const { App, ExpressReceiver } = require('@slack/bolt');
   require("dotenv").config();
   const axios = require('axios');
 
+
   // Initializes your app with your bot token and signing secret
   const app = new App({
     token: process.env.SLACK_BOT_TOKEN,
@@ -18,6 +19,7 @@ const { App, ExpressReceiver } = require('@slack/bolt');
 
   app.command('/comic', async ({ command, ack, say, }) => {
     await ack();
+    console.log("hi")
     const api_url = 'https://xkcd.com/info.0.json'
     let req = await axios.get(api_url);
      const { num } = req.data
