@@ -1,9 +1,8 @@
-
-  const { App } = require('@slack/bolt');
+const { App, ExpressReceiver } = require('@slack/bolt');
   require("dotenv").config();
   const axios = require('axios');
   const express = require('express')
-const { App, ExpressReceiver } = require('@slack/bolt');
+
 
 const receiver = new ExpressReceiver({ signingSecret: process.env.SLACK_SIGNING_SECRET });
 
