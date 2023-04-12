@@ -1,8 +1,2 @@
-# xkcd
-# xkcd
-# xkcd
-# xkcd
-# xkcd
-# xkcd
-# xkcd
-# xkcd
+# xkcd_slack
+A slack bot for XKCD.com
