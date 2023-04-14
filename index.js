@@ -4,11 +4,14 @@ const { App} = require('@slack/bolt');
   const axios = require('axios');
 
 
+
+
   // Initializes your app with your bot token and signing secret
   const app = new App({
     token: process.env.SLACK_BOT_TOKEN,
-    signingSecret: process.env.SIGNING_SECRET,
-    appToken: process.env.SLACK_APP_TOKEN
+    signingSecret: process.env.SIGNING_SECRET
+
+
   });
 
 
@@ -138,12 +141,11 @@ await say("Please try again, that doesn't look like a vaild input")
 (async () => {
   // Start your app
   await app.start();
-	  const port = 3001
+	  const port = 3002
   // Start your app
   await app.start(process.env.PORT || port);
-
-  console.log('⚡️ Bolt app is running!');
 })();
+
 
 
 
