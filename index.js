@@ -138,14 +138,13 @@ await say("Please try again, that doesn't look like a vaild input")
 
   });
 
+// start the app with port 3002
 (async () => {
-  // Start your app
-  await app.start();
-	  const port = 3003
-  // Start your app
-  await app.start(process.env.PORT || port);
+	let port = 3002
+	  // Start your app
+  await app.start(process.env.PORT || 3002);
+
+  console.log('⚡️ Bolt app is running!');
 })();
-
-
 
 
