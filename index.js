@@ -14,11 +14,11 @@ const { App} = require('@slack/bolt');
 	socketMode: true
   });
 
-  function delay(milliseconds){
-    return new Promise(resolve => {
-        setTimeout(resolve, milliseconds);
-    });
-}
+//   function delay(milliseconds){
+//     return new Promise(resolve => {rs
+//         setTimeout(resolve, milliseconds);
+//     });
+// }
 
 // initialize a map to store the comic names and numbers
 
