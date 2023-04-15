@@ -152,7 +152,7 @@ await say({
 			"elements": [
 				{
 					"type": "plain_text",
-					"text": ` Comic number: ${randomComic}`,
+					"text": ` Comic number: ${randomComic}, requested by: ${command.user.name}}`,
 					"emoji": true
 				}
 			]
