@@ -42,9 +42,7 @@ for (let i = 1; i < comicNum; i++) {
 		const comicTitle = response.data.title
 		list.set(comicTitle, comicnmber)
 		// if i = 400, break the loop
-		if (i % 100 === 0) {
-			console.log("working")
-		}
+	
 
 }
 }
@@ -53,8 +51,6 @@ getComicByNames();
 // send a request
   app.command('/comic', async ({ command, ack, say, }) => {
     await ack();
-    console.log("hi")
-   
     let req = await axios.get(api_url);
      const { num } = req.data
 
@@ -64,7 +60,7 @@ getComicByNames();
 
 
     if (comicRequest.match(numbers)) {
-
+		console.log(command.user_id)
       let id = parseInt(comicRequest)
       console.log(comicRequest)
       const id_url = `https://xkcd.com/${id}/info.0.json`
@@ -110,8 +106,8 @@ await say({
 
 )
 }
-
     else if (comicRequest == "random") {
+		try {
      let response = await axios.get(api_url);
      let { num } = response.data
      console.log(num)
@@ -151,15 +147,17 @@ await say({
 			"type": "context",
 			"elements": [
 				{
-					"type": "plain_text",
-					"text": ` Comic number: ${randomComic}, requested by: ${command.user.name}}`,
-					"emoji": true
+					"type": "mrkdwn",
+					"text": ` Comic number: ${randomComic}, requested by: <@${command.user_id}>`
 				}
 			]
 		}
 	]
 }
 )
+		} catch (error) {
+			console.log(error)
+		}
 
 
     }
