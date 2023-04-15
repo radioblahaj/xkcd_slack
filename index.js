@@ -95,9 +95,8 @@ await say({
 			"type": "context",
 			"elements": [
 				{
-					"type": "plain_text",
-					"text": ` Comic number: ${num}`,
-					"emoji": true
+					"type": "mrkdwn",
+					"text": ` Comic number: ${randomComic}, requested by: <@${command.user_id}>`
 				}
 			]
 		}
