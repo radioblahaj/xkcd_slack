@@ -9,13 +9,13 @@ const { App} = require('@slack/bolt');
   // Initializes your app with your bot token and signing secret
   const app = new App({
     token: process.env.SLACK_BOT_TOKEN,
-    signingSecret: process.env.SIGNING_SECRET
-
+    signingSecret: process.env.SIGNING_SECRET,
+	socketMode: true
 
   });
 
 
-
+// send a request
   app.command('/comic', async ({ command, ack, say, }) => {
     await ack();
     console.log("hi")
@@ -138,13 +138,8 @@ await say("Please try again, that doesn't look like a vaild input")
 
   });
 
-// start the app with port 3002
-(async () => {
-	let port = 3002
-	  // Start your app
-  await app.start(process.env.PORT || 3002);
-
-  console.log('⚡️ Bolt app is running!');
-})();
-
-
+  // Start your app
+  (async () => {
+	// start on port 3000
+	await app.start(process.env.PORT || 3000);
+  })();
