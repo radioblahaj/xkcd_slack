@@ -96,7 +96,7 @@ await say({
 			"elements": [
 				{
 					"type": "mrkdwn",
-					"text": ` Comic number: ${randomComic}, requested by: <@${command.user_id}>`
+					"text": ` Comic number: ${num}, requested by: <@${command.user_id}>`
 				}
 			]
 		}
