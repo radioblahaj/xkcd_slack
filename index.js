@@ -1,20 +1,20 @@
-
-const { App} = require('@slack/bolt');
-  require("dotenv").config();
-  const axios = require('axios');
-
-
-
-
-  // Initializes your app with your bot token and signing secret
-  const app = new App({
-    token: process.env.SLACK_BOT_TOKEN,
-    signingSecret: process.env.SIGNING_SECRET,
-	socketMode: true
-
-  });
+const express = require('express')
+const { App, ExpressReceiver } = require('@slack/bolt');
+// import axios, require
+const axios = require('axios');
+// dotenv
+require('dotenv').config();
 
 
+const receiver = new ExpressReceiver({ signingSecret: process.env.SLACK_SIGNING_SECRET });
+
+receiver.router.use(express.static('public'))
+
+const app = new App({
+  receiver,
+  token: process.env.SLACK_BOT_TOKEN,
+  signingSecret: process.env.SIGNING_SECRET
+});
 // send a request
   app.command('/comic', async ({ command, ack, say, }) => {
     await ack();
