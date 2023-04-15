@@ -1,33 +1,70 @@
-const express = require('express')
-const { App, ExpressReceiver } = require('@slack/bolt');
-// import axios, require
-const axios = require('axios');
-// dotenv
-require('dotenv').config();
+
+const { App} = require('@slack/bolt');
+  require("dotenv").config();
+  const axios = require('axios');
 
 
-const receiver = new ExpressReceiver({ signingSecret: process.env.SLACK_SIGNING_SECRET });
 
-receiver.router.use(express.static('public'))
 
-const app = new App({
-  receiver,
-  token: process.env.SLACK_BOT_TOKEN,
-  signingSecret: process.env.SIGNING_SECRET
-});
+  // Initializes your app with your bot token and signing secret
+  const app = new App({
+    token: process.env.SLACK_BOT_TOKEN,
+    signingSecret: process.env.SIGNING_SECRET,
+	appToken: process.env.SLACK_APP_TOKEN,
+	socketMode: true
+  });
+
+  function delay(milliseconds){
+    return new Promise(resolve => {
+        setTimeout(resolve, milliseconds);
+    });
+}
+
+// initialize a map to store the comic names and numbers
+
+const list = new Map();
+  const api_url = 'https://xkcd.com/info.0.json'
+
+async function getComicByNames() {
+	  let req = await axios.get(api_url);
+	 const { num } = req.data
+	 let comicNum = parseInt(num + 1)
+	 console.log(comicNum)
+
+// for loop to get all the comics
+for (let i = 1; i < comicNum; i++) {
+	if (i == 404) {
+		i++
+	}
+		let url = `https://xkcd.com/${i}/info.0.json`
+		let response = await axios.get(url);
+		const comicnmber = response.data.num
+		const comicTitle = response.data.title
+		list.set(comicTitle, comicnmber)
+		// if i = 400, break the loop
+		if (i % 100 === 0) {
+			console.log("working")
+		}
+
+}
+}
+
+getComicByNames();
 // send a request
   app.command('/comic', async ({ command, ack, say, }) => {
     await ack();
     console.log("hi")
-    const api_url = 'https://xkcd.com/info.0.json'
+   
     let req = await axios.get(api_url);
      const { num } = req.data
 
     let comicRequest = command.text;
-    const numbers = /^[0-9]+$/;
+    const numbers = /^[0-9]+$/; // yes this is a regexp
+
 
 
     if (comicRequest.match(numbers)) {
+
       let id = parseInt(comicRequest)
       console.log(comicRequest)
       const id_url = `https://xkcd.com/${id}/info.0.json`
@@ -70,6 +107,7 @@ await say({
 		}
 	]
 }
+
 )
 }
 
@@ -126,6 +164,8 @@ await say({
 
     }
 
+// else if comicRequest is "name", search the map for the name and return the comic
+
     else if (comicRequest == "LATEST" || "latest") {
  await say(`${command.user.name} requested today's comic`)
 }
@@ -140,6 +180,5 @@ await say("Please try again, that doesn't look like a vaild input")
 
   // Start your app
   (async () => {
-	// start on port 3000
-	await app.start(process.env.PORT || 3000);
+	await app.start()
   })();
