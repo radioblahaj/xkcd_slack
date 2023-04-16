@@ -58,7 +58,7 @@ getComicByNames();
 
 	console.log(list)
 
-if (!isNaN(Number(text))) {
+if (commands[0] == "name") {
 	console.log(commands)
 	console.log(text)
 	let comicName = commands.shift()
