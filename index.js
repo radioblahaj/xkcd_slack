@@ -49,7 +49,7 @@ for (let i = 1; i < comicNum; i++) {
 
 getComicByNames();
 // send a request
-  app.command('/comic', async ({ command, ack, say, client }) => {
+  app.command('/xkcd', async ({ command, ack, say, client }) => {
     await ack();
 	try {
 
@@ -57,6 +57,8 @@ getComicByNames();
 	let commands = text.split(" ")
 
 	console.log(list)
+
+
 
 if (commands[0] == "name") {
 	console.log(commands)
@@ -106,12 +108,17 @@ if (commands[0] == "name") {
 	)
 }
 
+
+
     let comicRequest = command.text;
     const numbers = /^[0-9]+$/; // yes this is a regexp
 
 
 
     if (comicRequest.match(numbers)) {
+		// ping the @here 
+		
+		
 		// console.log(command.user_id)
       let id = parseInt(comicRequest)
       console.log(comicRequest)
@@ -157,6 +164,49 @@ await say({
 
 )
 }
+
+if (comicRequest == "latest") {
+	const api = "https://xkcd.com/info.0.json"
+	let response = await axios.get(api);
+	const { title, alt, month, num, img} = response.data
+	await say({
+		"blocks": [
+			{
+				"type": "header",
+				"text": {
+					"type": "plain_text",
+					"text": `${title}`,
+					"emoji": true
+				}
+			},
+			{
+				"type": "section",
+				"text": {
+					"type": "plain_text",
+					"text": `${alt}`,
+					"emoji": true
+				}
+			},
+			{
+				"type": "image",
+				"image_url": `${img}`,
+				"alt_text": `${alt}`
+			},
+			{
+				"type": "context",
+				"elements": [
+					{
+						"type": "mrkdwn",
+						"text": ` Comic number: ${num}, requested by: <@${command.user_id}>`
+					}
+				]
+			}
+		]
+	}
+	
+	)
+}
+
     else if (comicRequest == "random") {
 		
      let response = await axios.get(api_url);
@@ -212,46 +262,6 @@ await say({
     }
 
 
-if (comicRequest == "latest") {
-	const api = "https://xkcd.com/info.0.json"
-	let response = await axios.get(api);
-	await say({
-		"blocks": [
-			{
-				"type": "header",
-				"text": {
-					"type": "plain_text",
-					"text": `${title}`,
-					"emoji": true
-				}
-			},
-			{
-				"type": "section",
-				"text": {
-					"type": "plain_text",
-					"text": `${alt}`,
-					"emoji": true
-				}
-			},
-			{
-				"type": "image",
-				"image_url": `${img}`,
-				"alt_text": `${alt}`
-			},
-			{
-				"type": "context",
-				"elements": [
-					{
-						"type": "mrkdwn",
-						"text": ` Comic number: ${num}, requested by: <@${command.user_id}>`
-					}
-				]
-			}
-		]
-	}
-	
-	)
-}
 
 
 
