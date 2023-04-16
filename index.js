@@ -57,7 +57,7 @@ getComicByNames();
 	let commands = text.split(" ")
 
 
-if (commands[0] == "name") {
+if (!isNaN(Number(text))) {
 	console.log(commands)
 	console.log(text)
 	let comicName = commands.shift()
