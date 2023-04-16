@@ -56,6 +56,7 @@ getComicByNames();
 		let text = command.text
 	let commands = text.split(" ")
 
+	console.log(list)
 
 if (!isNaN(Number(text))) {
 	console.log(commands)
@@ -111,7 +112,7 @@ if (!isNaN(Number(text))) {
 
 
     if (comicRequest.match(numbers)) {
-		console.log(command.user_id)
+		// console.log(command.user_id)
       let id = parseInt(comicRequest)
       console.log(comicRequest)
       const id_url = `https://xkcd.com/${id}/info.0.json`
