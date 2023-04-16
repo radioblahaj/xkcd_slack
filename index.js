@@ -14,11 +14,11 @@ const { App} = require('@slack/bolt');
 	socketMode: true
   });
 
-//   function delay(milliseconds){
-//     return new Promise(resolve => {rs
-//         setTimeout(resolve, milliseconds);
-//     });
-// }
+  function delay(milliseconds){
+    return new Promise(resolve => {
+        setTimeout(resolve, milliseconds);
+    });
+}
 
 // initialize a map to store the comic names and numbers
 
@@ -39,9 +39,9 @@ for (let i = 1; i < comicNum; i++) {
 		let url = `https://xkcd.com/${i}/info.0.json`
 		let response = await axios.get(url);
 		const comicnmber = response.data.num
-		const comicTitle = response.data.title
+		const comicTitle = response.data.title.toLowerCase()
 		list.set(comicTitle, comicnmber)
-		// if i = 400, break the loop
+		
 	
 
 }
@@ -49,10 +49,61 @@ for (let i = 1; i < comicNum; i++) {
 
 getComicByNames();
 // send a request
-  app.command('/comic', async ({ command, ack, say, }) => {
+  app.command('/comic', async ({ command, ack, say, client }) => {
     await ack();
-    let req = await axios.get(api_url);
-     const { num } = req.data
+	try {
+
+		let text = command.text
+	let commands = text.split(" ")
+
+
+if (commands[0] == "name") {
+	console.log(commands)
+	console.log(text)
+	let comicName = commands.shift()
+	comicName = commands.join(" ")
+	let comicNumber = list.get(comicName)
+	console.log(comicNumber)
+	let url = `https://xkcd.com/${comicNumber}/info.0.json`
+	console.log(url)
+	let response = await axios.get(url);
+	const { title, alt, month, num, img} = response.data
+	await say({
+		"blocks": [
+			{
+				"type": "header",
+				"text": {
+					"type": "plain_text",
+					"text": `${title}`,
+					"emoji": true
+				}
+			},
+			{
+				"type": "section",
+				"text": {
+					"type": "plain_text",
+					"text": `${alt}`,
+					"emoji": true
+				}
+			},
+			{
+				"type": "image",
+				"image_url": `${img}`,
+				"alt_text": `${alt}`
+			},
+			{
+				"type": "context",
+				"elements": [
+					{
+						"type": "mrkdwn",
+						"text": ` Comic number: ${num}, requested by: <@${command.user_id}>`
+					}
+				]
+			}
+		]
+	}
+	)
+}
 
     let comicRequest = command.text;
     const numbers = /^[0-9]+$/; // yes this is a regexp
@@ -106,7 +157,7 @@ await say({
 )
 }
     else if (comicRequest == "random") {
-		try {
+		
      let response = await axios.get(api_url);
      let { num } = response.data
      console.log(num)
@@ -154,28 +205,31 @@ await say({
 	]
 }
 )
-		} catch (error) {
-			console.log(error)
-		}
+		
 
 
     }
 
-// else if comicRequest is "name", search the map for the name and return the comic
-
-    else if (comicRequest == "LATEST" || "latest") {
- await say(`${command.user.name} requested today's comic`)
-}
-
-else {
-await say("Please try again, that doesn't look like a vaild input")
-
-}
 
 
-  });
 
-  // Start your app
+
+
+
+
+
+	} catch (error) {
+		console.log(error)
+		// empheral message
+		await client.chat.postEphemeral({
+			channel: command.channel_id,
+			user: command.user_id,
+			text: `${command.text} is not a valid input, please try again`
+		});
+	}
+	  });
+// start the app
   (async () => {
-	await app.start()
+	await app.start();
+	console.log('⚡️ Bolt app is running!');
   })();
