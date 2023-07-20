@@ -14,15 +14,11 @@ const { App} = require('@slack/bolt');
 	socketMode: true
   });
 
-  function delay(milliseconds){
-    return new Promise(resolve => {
-        setTimeout(resolve, milliseconds);
-    });
-}
+
 
 // initialize a map to store the comic names and numbers
 
-const list = new Map();
+const comicList = new Map();
   const api_url = 'https://xkcd.com/info.0.json'
 
 async function getComicByNames() {
@@ -40,7 +36,7 @@ for (let i = 1; i < comicNum; i++) {
 		let response = await axios.get(url);
 		const comicnmber = response.data.num
 		const comicTitle = response.data.title.toLowerCase()
-		list.set(comicTitle, comicnmber)
+		comicList.set(comicTitle, comicnmber)
 		
 	
 
@@ -56,7 +52,7 @@ getComicByNames();
 		let text = command.text
 	let commands = text.split(" ")
 
-	console.log(list)
+	console.log(comicList)
 
 
 
@@ -65,7 +61,7 @@ if (commands[0] == "name") {
 	console.log(text)
 	let comicName = commands.shift()
 	comicName = commands.join(" ")
-	let comicNumber = list.get(comicName)
+	let comicNumber = comicList.get(comicName)
 	console.log(comicNumber)
 	let url = `https://xkcd.com/${comicNumber}/info.0.json`
 	console.log(url)
