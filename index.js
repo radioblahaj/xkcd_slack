@@ -25,7 +25,7 @@ async function getComicByNames() {
 	  let req = await axios.get(api_url);
 	 const { num } = req.data
 	 let comicNum = parseInt(num + 1)
-	 console.log(comicNum)
+	 // console.log(comicNum)
 
 // for loop to get all the comics
 for (let i = 1; i < comicNum; i++) {
@@ -52,7 +52,7 @@ getComicByNames();
 		let text = command.text
 	let commands = text.split(" ")
 
-	console.log(comicList)
+	// console.log(comicList)
 
 
 
@@ -62,9 +62,9 @@ if (commands[0] == "name") {
 	let comicName = commands.shift()
 	comicName = commands.join(" ")
 	let comicNumber = comicList.get(comicName)
-	console.log(comicNumber)
+	// console.log(comicNumber)
 	let url = `https://xkcd.com/${comicNumber}/info.0.json`
-	console.log(url)
+	// console.log(url)
 	let response = await axios.get(url);
 	const { title, alt, month, num, img} = response.data
 	await say({
@@ -119,8 +119,8 @@ if (commands[0] == "name") {
       let id = parseInt(comicRequest)
       console.log(comicRequest)
       const id_url = `https://xkcd.com/${id}/info.0.json`
-      console.log(id)
-      console.log(id_url)
+      // console.log(id)
+      // console.log(id_url)
         let response = await axios.get(id_url);
      const { title, alt, month, num, img} = response.data
 await say({
@@ -207,14 +207,14 @@ if (comicRequest == "latest") {
 		
      let response = await axios.get(api_url);
      let { num } = response.data
-     console.log(num)
+     // console.log(num)
     let comicNum = parseInt(num + 1)
-    console.log(comicNum)
+    // console.log(comicNum)
     let randomComic = Math.floor(Math.random() * comicNum)
-    console.log(randomComic)
+    // console.log(randomComic)
 
   let url = `https://xkcd.com/${randomComic}/info.0.json`
- console.log(url)
+ // console.log(url)
     let req = await axios.get(url);
      const { title, alt, month, img} = req.data
 await say({
