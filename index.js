@@ -52,7 +52,7 @@ getComicByNames();
 		let text = command.text
 	let commands = text.split(" ")
 
-	// console.log(comicList)
+	 console.log(comicList)
 
 
 
