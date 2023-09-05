@@ -170,7 +170,7 @@ if (comicRequest == "latest") {
 			{
 				"type": "header",
 				"text": {
-					"type": "",
+					"type": "plain_text",
 					"text": `${title} (#${num})`,
 					"emoji": true
 				}
