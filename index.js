@@ -170,23 +170,30 @@ if (comicRequest == "latest") {
 			{
 				"type": "header",
 				"text": {
-					"type": "plain_text",
-					"text": `${title}`,
+					"type": "",
+					"text": `${title} (#${num})`,
 					"emoji": true
 				}
 			},
 			{
 				"type": "section",
 				"text": {
-					"type": "plain_text",
-					"text": `${alt}`,
-					"emoji": true
+					"type": "mrkdwn",
+					"text": `<https://xkcd.com/${num}|on xkcd> | <https://explainxkcd.com/${num}|on explainxkcd>`,
 				}
 			},
 			{
 				"type": "image",
 				"image_url": `${img}`,
 				"alt_text": `${alt}`
+			},
+			{
+				"type": "section",
+				"text": {
+					"type": "plain_text",
+					"text": `Alt: ${alt}`,
+					"emoji": true
+				}
 			},
 			{
 				"type": "context",
