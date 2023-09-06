@@ -78,6 +78,13 @@ if (commands[0] == "name") {
 				}
 			},
 			{
+			"type": "section",
+				"text": {
+					"type": "mrkdwn",
+					"text": `<https://xkcd.com/${num}|on xkcd> | <https://explainxkcd.com/${num}|on explainxkcd>`,
+				}
+			},
+			{
 				"type": "section",
 				"text": {
 					"type": "plain_text",
@@ -136,6 +143,13 @@ await say({
 		{
 			"type": "section",
 			"text": {
+				"type": "mrkdwn",
+				"text": `<https://xkcd.com/${num}|on xkcd> | <https://explainxkcd.com/${num}|on explainxkcd>`,
+			}
+		},
+		{
+			"type": "section",
+			"text": {
 				"type": "plain_text",
 				"text": `${alt}`,
 				"emoji": true
@@ -173,6 +187,13 @@ if (comicRequest == "latest") {
 					"type": "plain_text",
 					"text": `${title}`,
 					"emoji": true
+				}
+			},
+			{
+				"type": "section",
+				"text": {
+					"type": "mrkdwn",
+					"text": `<https://xkcd.com/${num}|on xkcd> | <https://explainxkcd.com/${num}|on explainxkcd>`,
 				}
 			},
 			{
@@ -225,6 +246,13 @@ await say({
 				"type": "plain_text",
 				"text": `${title}`,
 				"emoji": true
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": `<https://xkcd.com/${num}|on xkcd> | <https://explainxkcd.com/${num}|on explainxkcd>`,
 			}
 		},
 		{
