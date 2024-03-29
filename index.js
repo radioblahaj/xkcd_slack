@@ -3,9 +3,6 @@ const { App} = require('@slack/bolt');
   require("dotenv").config();
   const axios = require('axios');
 
-
-
-
   // Initializes your app with your bot token and signing secret
   const app = new App({
     token: process.env.SLACK_BOT_TOKEN,
@@ -13,8 +10,6 @@ const { App} = require('@slack/bolt');
 	appToken: process.env.SLACK_APP_TOKEN,
 	socketMode: true
   });
-
-
 
 // initialize a map to store the comic names and numbers
 
@@ -37,9 +32,6 @@ for (let i = 1; i < comicNum; i++) {
 		const comicnmber = response.data.num
 		const comicTitle = response.data.title.toLowerCase()
 		comicList.set(comicTitle, comicnmber)
-		
-	
-
 }
 }
 
@@ -48,14 +40,11 @@ getComicByNames();
   app.command('/xkcd', async ({ command, ack, say, client }) => {
     await ack();
 	try {
-
-		let text = command.text
+	let text = command.text
 	let commands = text.split(" ")
-
+		
 	 console.log(comicList)
-
-
-
+		
 if (commands[0] == "name") {
 	console.log(commands)
 	console.log(text)
@@ -111,12 +100,8 @@ if (commands[0] == "name") {
 	)
 }
 
-
-
     let comicRequest = command.text;
     const numbers = /^[0-9]+$/; // yes this is a regexp
-
-
 
     if (comicRequest.match(numbers)) {
 		// ping the @here 
@@ -280,18 +265,8 @@ await say({
 	]
 }
 )
-		
-
 
     }
-
-
-
-
-
-
-
-
 
 	} catch (error) {
 		console.log(error)
