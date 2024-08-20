@@ -26,5 +26,8 @@
     "url": "https://github.com/tregsthedev/bolts/issues"
   },
   "homepage": "https://github.com/tregsthedev/bolts#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
 }
